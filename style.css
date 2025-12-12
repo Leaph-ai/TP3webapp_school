@@ -95,12 +95,17 @@ header {
     text-align: center;
     color: rgba(255, 255, 255, 0.92);
     margin-bottom: 30px;
+
+    position: relative; /* <-- important pour positionner le bouton */
 }
 
 .header-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
+    position: absolute;  /* <-- au lieu d'un simple flex */
+    top: 0;
+    right: 0;
+    display: block;
+    margin-bottom: 0;
+    z-index: 2; /* <-- au-dessus */
 }
 
 /* Base button style */
@@ -125,6 +130,9 @@ button:active {
     box-shadow: var(--glass-shadow);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+
+    padding: 10px 14px;
+    border-radius: 12px;
 }
 
 #theme-toggle:hover {
@@ -381,5 +389,12 @@ input[type="text"]::placeholder {
 
     .header-actions {
         justify-content: center;
+    }
+
+    .header-actions {
+        position: static; /* sur mobile on le remet au flux normal */
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 }
