@@ -34,10 +34,39 @@ let currentCity = null;
 
 // ===== Initialisation =====
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     updateNotifyButton();
     registerServiceWorker();
 });
 
+// ===== Thème (manuel) =====
+function getSystemTheme() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (elements.themeToggle) {
+        const isDark = theme === 'dark';
+        elements.themeToggle.textContent = isDark ? '☀️ Mode clair' : '🌙 Mode sombre';
+        elements.themeToggle.setAttribute('aria-pressed', String(isDark));
+    }
+}
+
+function initTheme() {
+    const saved = localStorage.getItem(CONFIG.STORAGE_KEY_THEME);
+    const theme = (saved === 'dark' || saved === 'light') ? saved : getSystemTheme();
+    applyTheme(theme);
+
+    if (elements.themeToggle) {
+        elements.themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem(CONFIG.STORAGE_KEY_THEME, next);
+            applyTheme(next);
+        });
+    }
+}
 // ===== Service Worker =====
 async function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
