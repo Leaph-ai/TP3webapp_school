@@ -1,4 +1,3 @@
-
 // ===== CONFIGURATION =====
 const CACHE_NAME = 'meteo-pwa-v1';
 
@@ -15,7 +14,9 @@ const ASSETS = [
     BASE_PATH,
     `${BASE_PATH}index.html`,
     `${BASE_PATH}app.js`,
+    `${BASE_PATH}style.css`,
     `${BASE_PATH}manifest.json`,
+    `${BASE_PATH}assets/background.webp`,
     `${BASE_PATH}icons/icon-72.png`,
     `${BASE_PATH}icons/icon-96.png`,
     `${BASE_PATH}icons/icon-128.png`,
